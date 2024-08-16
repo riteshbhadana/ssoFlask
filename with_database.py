@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from authlib.integrations.flask_client import OAuth
 from api_key import *
 
-
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Change this to a random secret key
 
