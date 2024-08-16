@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from authlib.integrations.flask_client import OAuth
+import os
+from dotenv import load_dotenv
+load_dotenv()
 from api_key import *
 
 app = Flask(__name__)
@@ -17,8 +20,8 @@ oauth = OAuth(app)
 
 google = oauth.register(
     name='google',
-    client_id=CLIENT_ID,
-    client_secret=CLIENT_SECRET,
+    client_id=os.getenv("CLIENT_ID"),
+    client_secret=os.getenv("CLIENT_SECRET"),
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'scope': 'openid profile email'}
 )
@@ -106,7 +109,7 @@ def logout():
 def login_google():
     # try:
     if True:
-        redirect_uri = url_for('authorize_google', _exzternal=True)
+        redirect_uri = url_for('authorize_google', _external=True)
         return google.authorize_redirect(redirect_uri)
     # except Exception as e:
     #     app.logger.error(f"Error during login:{str(e)}")
